@@ -98,7 +98,7 @@ export function Header() {
       <div className='container mx-auto px-4 py-4'>
         <div className='flex items-center justify-between'>
           {/* Logo */}
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center space-x-2 mr-2'>
             <Music className='h-8 w-8 text-primary' />
             <span className='text-2xl font-bold'>MelodyMart</span>
           </div>
