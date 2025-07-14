@@ -107,7 +107,7 @@ export function Header() {
           <nav className='hidden lg:flex items-center space-x-6'>
             {Object.entries(navigationItems).map(([key, category]) => (
               <DropdownMenu key={key}>
-                <DropdownMenuTrigger className='flex items-center space-x-1 text-sm font-medium hover:text-primary transition-colors'>
+                <DropdownMenuTrigger className='flex items-center space-x-1 text-sm font-n outline-none hover:text-primary transition-colors'>
                   <span>{category.title}</span>
                   <ChevronDown className='h-4 w-4' />
                 </DropdownMenuTrigger>
