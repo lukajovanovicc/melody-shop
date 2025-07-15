@@ -108,10 +108,7 @@ const Header = () => {
                 <DropdownMenuContent className='w-56'>
                   {category.items.map((item, index) => (
                     <DropdownMenuItem key={index} asChild>
-                      <Link
-                        href={`/products/${item.href}`}
-                        className='cursor-pointer'
-                      >
+                      <Link href={`/products`} className='cursor-pointer'>
                         {item.name}
                       </Link>
                     </DropdownMenuItem>

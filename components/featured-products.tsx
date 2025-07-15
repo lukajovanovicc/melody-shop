@@ -23,7 +23,7 @@ export function FeaturedProducts() {
             Hand-picked instruments from our collection
           </p>
         </div>
-        <Carousel className='w-full max-w-full mx-auto'>
+        <Carousel className='w-2/3 xl:w-full max-w-full mx-auto'>
           <CarouselContent className='-ml-2 md:-ml-4'>
             {products.map((product) => (
               <CarouselItem

@@ -37,7 +37,6 @@ const fetchService = async <S, F = any>(
       ...buildDefaultHeaders(token ?? accessToken),
       ...body?.headers,
     },
-    // cache: 'no-store' as const,
   };
 
   try {

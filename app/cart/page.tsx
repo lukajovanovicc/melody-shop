@@ -14,22 +14,8 @@ import PageLayout from '../layout/CustomLayout';
 
 const CartPage: NextPage<any> = () => {
   const { products, deleteFromCart, updateProduct } = useCart();
-  const [cartItems, setCartItems] = useState(products);
-  const [promoCode, setPromoCode] = useState('');
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity <= 0) {
-      deleteFromCart(id);
-      return;
-    }
-    setCartItems((items) =>
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const subtotal = cartItems.reduce(
+  const subtotal = products.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
@@ -72,7 +58,7 @@ const CartPage: NextPage<any> = () => {
             {products.map((item) => (
               <Card key={item.id}>
                 <CardContent className='p-6'>
-                  <div className='flex items-center gap-4'>
+                  <div className='flex sm:items-center flex-col sm:flex-row gap-4'>
                     <Image
                       src={item.images[0] || '/placeholder.svg'}
                       alt={item.name}
@@ -89,14 +75,9 @@ const CartPage: NextPage<any> = () => {
                         variant='outline'
                         size='sm'
                         onClick={() =>
-                          item.quantity === 1
-                            ? deleteFromCart(item.id)
-                            : updateProduct(
-                                item.id,
-                                'quantity',
-                                item.quantity - 1
-                              )
+                          updateProduct(item.id, 'quantity', item.quantity - 1)
                         }
+                        disabled={item.quantity === 1}
                       >
                         <Minus className='h-4 w-4' />
                       </Button>
@@ -162,24 +143,9 @@ const CartPage: NextPage<any> = () => {
                   </p>
                 )}
 
-                <div className='space-y-4'>
-                  <div className='flex gap-2'>
-                    <Input
-                      placeholder='Promo code'
-                      value={promoCode}
-                      onChange={(e) => setPromoCode(e.target.value)}
-                    />
-                    <Button variant='outline'>Apply</Button>
-                  </div>
-
-                  <Button className='w-full' size='lg'>
-                    Proceed to Checkout
-                  </Button>
-
-                  <Button variant='outline' className='w-full bg-transparent'>
-                    Save for Later
-                  </Button>
-                </div>
+                <Button className='w-full' size='lg'>
+                  Proceed to Checkout
+                </Button>
 
                 <div className='mt-6 text-sm text-muted-foreground'>
                   <p>• Secure checkout with SSL encryption</p>
