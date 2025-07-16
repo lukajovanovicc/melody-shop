@@ -1,16 +1,11 @@
-'use client';
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import CustomLayout from '../layout/CustomLayout';
+import { NextPage } from 'next';
 
-export default function SuccessPage() {
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id');
-
+const SuccessPage: NextPage<any> = async () => {
   return (
     <CustomLayout>
       <div className='min-h-[55vh] flex items-center justify-center font-medium'>
@@ -32,4 +27,6 @@ export default function SuccessPage() {
       </div>
     </CustomLayout>
   );
-}
+};
+
+export default SuccessPage;
