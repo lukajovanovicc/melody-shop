@@ -49,10 +49,6 @@ const Order = () => {
     <Card className='w-full max-w-md'>
       <CardContent className='p-8'>
         <h2 className='text-2xl font-bold mb-6 text-center'>Checkout</h2>
-        <strong>
-          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:{' '}
-          {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
-        </strong>{' '}
         <div className='mb-6'>
           <h3 className='font-semibold mb-4'>Order Summary</h3>
           {products.map((product) => (
