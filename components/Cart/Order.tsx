@@ -49,7 +49,10 @@ const Order = () => {
     <Card className='w-full max-w-md'>
       <CardContent className='p-8'>
         <h2 className='text-2xl font-bold mb-6 text-center'>Checkout</h2>
-
+        <strong>
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:{' '}
+          {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+        </strong>{' '}
         <div className='mb-6'>
           <h3 className='font-semibold mb-4'>Order Summary</h3>
           {products.map((product) => (
@@ -71,13 +74,11 @@ const Order = () => {
             </span>
           </div>
         </div>
-
         {error && (
           <div className='mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded'>
             {error}
           </div>
         )}
-
         <Button onClick={handleCheckout} disabled={loading} className='w-full'>
           {loading ? <Spinner /> : 'Proceed to Payment'}
         </Button>
