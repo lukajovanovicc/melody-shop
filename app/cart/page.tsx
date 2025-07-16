@@ -1,20 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { Trash2, Plus, Minus, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { NextPage } from 'next';
-import { useCart } from '@/hooks/useCart';
 import PageLayout from '../layout/CustomLayout';
 
-const CartPage: NextPage<any> = () => {
-  const { products, deleteFromCart, updateProduct } = useCart();
+import CartItems from '@/components/Cart/CartItems';
+import { useCart } from '@/hooks/useCart';
+import Order from '@/components/Cart/Order';
 
+const CartPage: NextPage<any> = () => {
+  const { products } = useCart();
   const subtotal = products.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -53,107 +52,12 @@ const CartPage: NextPage<any> = () => {
         <h1 className='text-3xl font-bold mb-8'>Shopping Cart</h1>
 
         <div className='grid lg:grid-cols-3 gap-8'>
-          {/* Cart Items */}
           <div className='lg:col-span-2 space-y-4'>
-            {products.map((item) => (
-              <Card key={item.id}>
-                <CardContent className='p-6'>
-                  <div className='flex sm:items-center flex-col sm:flex-row gap-4'>
-                    <Image
-                      src={item.images[0] || '/placeholder.svg'}
-                      alt={item.name}
-                      width={100}
-                      height={100}
-                      className='rounded-md'
-                    />
-                    <div className='flex-1'>
-                      <h3 className='font-semibold text-lg'>{item.name}</h3>
-                      <p className='text-muted-foreground'>${item.price}</p>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <Button
-                        variant='outline'
-                        size='sm'
-                        onClick={() =>
-                          updateProduct(item.id, 'quantity', item.quantity - 1)
-                        }
-                        disabled={item.quantity === 1}
-                      >
-                        <Minus className='h-4 w-4' />
-                      </Button>
-                      <span className='w-12 text-center'>{item.quantity}</span>
-                      <Button
-                        variant='outline'
-                        size='sm'
-                        onClick={() =>
-                          updateProduct(item.id, 'quantity', item.quantity + 1)
-                        }
-                      >
-                        <Plus className='h-4 w-4' />
-                      </Button>
-                    </div>
-                    <div className='text-right'>
-                      <p className='font-semibold'>
-                        ${(item.price * item.quantity).toLocaleString()}
-                      </p>
-                      <Button
-                        variant='ghost'
-                        size='sm'
-                        onClick={() => deleteFromCart(item.id)}
-                        className='text-red-500 hover:text-red-700'
-                      >
-                        <Trash2 className='h-4 w-4' />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            <CartItems />
           </div>
 
-          {/* Order Summary */}
           <div className='lg:col-span-1'>
-            <Card>
-              <CardContent className='p-6'>
-                <h2 className='text-xl font-semibold mb-4'>Order Summary</h2>
-
-                <div className='space-y-2 mb-4'>
-                  <div className='flex justify-between'>
-                    <span>Subtotal:</span>
-                    <span>${subtotal.toLocaleString()}</span>
-                  </div>
-                  <div className='flex justify-between'>
-                    <span>Shipping:</span>
-                    <span>{shipping === 0 ? 'Free' : `$${shipping}`}</span>
-                  </div>
-                  <div className='flex justify-between'>
-                    <span>Tax:</span>
-                    <span>${tax.toFixed(2)}</span>
-                  </div>
-                  <Separator />
-                  <div className='flex justify-between font-semibold text-lg'>
-                    <span>Total:</span>
-                    <span>${total.toFixed(2)}</span>
-                  </div>
-                </div>
-
-                {shipping > 0 && (
-                  <p className='text-sm text-muted-foreground mb-4'>
-                    Add ${(99 - subtotal).toFixed(2)} more for free shipping!
-                  </p>
-                )}
-
-                <Button className='w-full' size='lg'>
-                  Proceed to Checkout
-                </Button>
-
-                <div className='mt-6 text-sm text-muted-foreground'>
-                  <p>• Secure checkout with SSL encryption</p>
-                  <p>• 30-day return policy</p>
-                  <p>• Free shipping on orders over $99</p>
-                </div>
-              </CardContent>
-            </Card>
+            <Order />
           </div>
         </div>
       </div>

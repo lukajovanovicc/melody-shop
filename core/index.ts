@@ -26,7 +26,6 @@ const buildResponse = async (response: Response) => {
 
 const fetchService = async <S, F = any>(
   url: string,
-  token?: string,
   body?: RequestInit
 ): Promise<FetchSuccess<S> | FetchFailure<F>> => {
   const cookies = await _cookies();
@@ -34,7 +33,7 @@ const fetchService = async <S, F = any>(
   const fetchBody = {
     ...body,
     headers: {
-      ...buildDefaultHeaders(token ?? accessToken),
+      ...buildDefaultHeaders(accessToken),
       ...body?.headers,
     },
   };

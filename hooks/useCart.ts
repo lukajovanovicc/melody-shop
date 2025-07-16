@@ -5,6 +5,7 @@ interface StoreCart {
   products: Product[];
   addToCart: (product: Product) => void;
   deleteFromCart: (id: number) => void;
+  clearCart: () => void;
   updateProduct: <K extends keyof Product>(
     id: number,
     field: K,
@@ -24,10 +25,13 @@ export const useCart = create<StoreCart>((set) => ({
         products: [...state.products, product],
       };
     }),
+
   deleteFromCart: (id) =>
     set((state) => ({
       products: state.products.filter((product) => product.id !== id),
     })),
+
+  clearCart: () => set({ products: [] }),
 
   updateProduct: (id, field, value) =>
     set((state) => ({

@@ -48,8 +48,8 @@ const ProductCard: FC<Props> = ({ product }) => {
               ))}
             </div>
             <div className='flex items-center justify-between'>
-              <span className='text-xl font-bold text-primary'>
-                ${product.price}
+              <span className='text-lg font-medium text-primary'>
+                {product.price.toFixed(2)} RSD
               </span>
               <Button
                 variant={added ? 'destructive' : 'default'}
@@ -59,6 +59,7 @@ const ProductCard: FC<Props> = ({ product }) => {
                   added ? deleteFromCart(product.id) : addToCart(product);
                 }}
                 size='sm'
+                className='font-medium'
               >
                 {added ? (
                   <p className='flex items-center'>
