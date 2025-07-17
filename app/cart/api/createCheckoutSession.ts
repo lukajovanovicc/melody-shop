@@ -30,7 +30,7 @@ export const createCheckoutSession = async (products: Product[]) => {
       invoice_creation: {
         enabled: true,
       },
-      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${baseUrl}/success`,
       cancel_url: `${baseUrl}/cart`,
       metadata: {
         orderItems: products.map((p) => `${p.name} (${p.quantity})`).join(', '),
